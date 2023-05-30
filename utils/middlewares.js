@@ -23,8 +23,7 @@ const checkToken = async (req, res, next) => {
     return res.status(errorToken.codigoEstado).json(errorToken);
   }
 
-  // const [users] = await getById(obj.usuario_id);
-  const [users] = await getById(2);
+  const [users] = await getById(obj.usuario_id);
   req.user = users[0];
 
   next();
