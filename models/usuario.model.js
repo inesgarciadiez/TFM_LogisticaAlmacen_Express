@@ -7,6 +7,13 @@ const getById = (usuarioId) => {
   );
 };
 
+const getByEmail = (email) => {
+  return db.query(
+      'select * from usuarios where email = ?',
+      [email]
+  );
+}
+
 module.exports = {
-  getById,
+  getById, getByEmail
 };
