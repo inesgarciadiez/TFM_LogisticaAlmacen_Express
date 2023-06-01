@@ -1,18 +1,20 @@
-const jwt = require('jsonwebtoken');
-const { getAllAlmacenes } = require('../models/almacenes.model');
+const jwt = require("jsonwebtoken");
+const { getAllAlmacenes } = require("../models/almacenes.model")
 const { HttpError } = require("./errores");
 
-
-
 const checkToken = async (req, res, next) => {
-    if (!req.headers['authorization']) {
-      return res.json({ fatal: 'Debes incluir la cabecera de Autorización' });
+  if (!req.headers["authorization"]) {
+    const error = new HttpError(
+      "Debes incluir la cabecera de autorización",
+      401
+    );
+    return res.status(error.codigoEstado).json(error);
   }
 
   const token = req.headers["authorization"];
   let obj;
   try {
-    obj = jwt.verify(token, 'en un lugar de la mancha');
+    obj = jwt.verify(token, process.env.SECRET_KEY);
   } catch (error) {
     const errorToken = new HttpError(
       `Error en el token: ${error.message}`,
@@ -27,4 +29,12 @@ const checkToken = async (req, res, next) => {
   next();
 };
 
-module.exports = checkToken;
+const checkOperario = (req, res, next) => {
+  if (req.user.rol != "operario") {
+    const error = new HttpError("Debes ser usuario operario", 403);
+    return res.status(error.codigoEstado).json(error);
+  }
+  next();
+};
+
+module.exports = { checkToken, checkOperario };

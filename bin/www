@@ -12,6 +12,8 @@ var http = require('http');
 // Config DotEnv
 require('dotenv').config();
 
+require('../config/db');
+
 /**
  * Get port from environment and store in Express.
  */
