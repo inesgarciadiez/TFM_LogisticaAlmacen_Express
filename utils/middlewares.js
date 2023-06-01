@@ -3,15 +3,15 @@ const { getById } = require("../models/usuario.model");
 const { HttpError } = require("./errores");
 
 const checkToken = async (req, res, next) => {
-  if (!req.headers["authorization"]) {
+  if (!req.headers['authorization']) {
     const error = new HttpError(
-      "Debes incluir la cabecera de autorización",
+      'Debes incluir la cabecera de autorización',
       401
     );
     return res.status(error.codigoEstado).json(error);
   }
 
-  const token = req.headers["authorization"];
+  const token = req.headers['authorization'];
   let obj;
   try {
     obj = jwt.verify(token, process.env.SECRET_KEY);
@@ -30,11 +30,19 @@ const checkToken = async (req, res, next) => {
 };
 
 const checkOperario = (req, res, next) => {
-  if (req.user.rol != "operario") {
-    const error = new HttpError("Debes ser usuario operario", 403);
+  if (req.user.rol != 'operario') {
+    const error = new HttpError('Debes ser usuario operario', 403);
     return res.status(error.codigoEstado).json(error);
   }
   next();
 };
 
-module.exports = { checkToken, checkOperario };
+const checkJefeEquipo = (req, res, next) => {
+  if (req.user.rol != 'jefe de equipo') {
+    const error = new HttpError('Debes ser jefe de equipo', 403);
+    return res.status(error.codigoEstado).json(error);
+  }
+  next();
+};
+
+module.exports = { checkToken, checkOperario, checkJefeEquipo };
