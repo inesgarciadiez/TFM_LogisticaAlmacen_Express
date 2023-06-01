@@ -29,12 +29,12 @@ const checkToken = async (req, res, next) => {
   next();
 };
 
-const checkOperario = (req, res, next) => {
-  if (req.user.rol != "operario") {
-    const error = new HttpError("Debes ser usuario operario", 403);
+const checkJefe = (req, res, next) => {
+  if (req.user.rol != "jefe") {
+    const error = new HttpError("Debes ser usuario jefe", 403);
     return res.status(error.codigoEstado).json(error);
   }
   next();
 };
 
-module.exports = { checkToken, checkOperario };
+module.exports = { checkToken, checkJefe };
