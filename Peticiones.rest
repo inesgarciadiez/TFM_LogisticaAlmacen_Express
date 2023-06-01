@@ -15,3 +15,7 @@ Content-Type: application/json
     "email": "jreyes@gmail.com",
     "password": "jreyes1234"
 }
+
+###
+GET {{host}}/api/usuarios
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3NiwidXNlcl9yb2xlIjoiYWRtaW4iLCJleHAiOjE2ODU3NzgzMjAsImlhdCI6MTY4NTM0NjMyMH0.3vJ2ulk10X_Bd0rfoihRvgTgoZcvmOVd1dtKfJ1_ajc
