@@ -1,8 +1,8 @@
 @host = http://localhost:3000
 
 GET {{host}}/api/almacenes
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3NiwidXNlcl9yb2xlIjoiYWRtaW4iLCJleHAiOjE2ODU3NzgzMjAsImlhdCI6MTY4NTM0NjMyMH0.3vJ2ulk10X_Bd0rfoihRvgTgoZcvmOVd1dtKfJ1_ajc
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3NiwidXNlcl9yb2xlIjoiYWRtaW4iLCJleHAiOjE2ODg0NzIxNTEsImlhdCI6MTY4NTg4MDE1MX0.MSiivevkCdgiUgO9YfQIGXTt4k1PIfjUPqPXbPlJElA
 
-
-
-
+###
+GET {{host}}/api/pedidos
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3NiwidXNlcl9yb2xlIjoiYWRtaW4iLCJleHAiOjE2ODg0NzIxNTEsImlhdCI6MTY4NTg4MDE1MX0.MSiivevkCdgiUgO9YfQIGXTt4k1PIfjUPqPXbPlJElA

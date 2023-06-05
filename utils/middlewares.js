@@ -37,4 +37,12 @@ const checkJefe = (req, res, next) => {
   next();
 };
 
-module.exports = { checkToken, checkJefe };
+const checkEncargado = (req, res, next) => {
+  if (req.user.rol != "encargado") {
+    const error = new HttpError("Debes ser usuario encargado", 403);
+    return res.status(error.codigoEstado).json(error);
+  }
+  next();
+};
+
+module.exports = { checkToken, checkJefe, checkEncargado };

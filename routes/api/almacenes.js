@@ -1,12 +1,11 @@
 const router = require("express").Router();
 
 const { getAllAlmacenes } = require('../../models/almacenes.model');
+const { checkJefe } = require("../../utils/middlewares");
 
 
 // GET /api/almacenes
-router.get('/', async(req, res) => {
-
-    console.log('Dentro de almacenes.js');
+router.get('/jefe',checkJefe, async(req, res) => {
     try {
         const [result] = await getAllAlmacenes();
         res.json(result);
