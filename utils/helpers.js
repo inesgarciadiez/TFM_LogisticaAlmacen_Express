@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken');
 
 const createToken = (user) => {
-    const obj =  {
+    const obj = {
         user_id: user.id,
         user_role: user.role,
         //exp_at: dayjs().add(5, 'minutes').unix()

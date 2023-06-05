@@ -1,10 +1,10 @@
 class HttpError {
-    constructor(mensaje, codigoEstado) {
-      this.mensaje = mensaje;
-      this.codigoEstado = codigoEstado;
-    }
+  constructor(mensaje, codigoEstado) {
+    this.mensaje = mensaje;
+    this.codigoEstado = codigoEstado;
   }
-  
-  module.exports = {
-    HttpError,
-  };
+}
+
+module.exports = {
+  HttpError,
+};
