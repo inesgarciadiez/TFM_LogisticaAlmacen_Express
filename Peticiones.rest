@@ -5,7 +5,7 @@
 #################
 ################# API logística
 GET {{host}}/api/pedidos/operario
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3NiwidXNlcl9yb2xlIjoiYWRtaW4iLCJleHAiOjE2ODU3NzgzMjAsImlhdCI6MTY4NTM0NjMyMH0.3vJ2ulk10X_Bd0rfoihRvgTgoZcvmOVd1dtKfJ1_ajc
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJ1c2VyX3JvbCI6MSwiaWF0IjoxNjg1OTc2MjM1fQ.0QhbMCkYWFH8npVmZMV6Bq_infVRTFo2QHoY_fzXy3U
 
 ###
 POST {{host}}/api/usuarios/login
