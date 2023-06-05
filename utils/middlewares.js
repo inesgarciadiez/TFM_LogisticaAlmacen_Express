@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { getAllAlmacenes } = require("../models/almacenes.model")
+const { getById } = require("../models/usuario.model");
 const { HttpError } = require("./errores");
 
 const checkToken = async (req, res, next) => {
@@ -23,17 +23,9 @@ const checkToken = async (req, res, next) => {
     return res.status(errorToken.codigoEstado).json(errorToken);
   }
 
-  const [users] = await getAllAlmacenes(obj.usuario_id);
+  const [users] = await getById(obj.usuario_id);
   req.user = users[0];
 
-  next();
-};
-
-const checkJefe = (req, res, next) => {
-  if (req.user.rol != "jefe") {
-    const error = new HttpError("Debes ser usuario jefe", 403);
-    return res.status(error.codigoEstado).json(error);
-  }
   next();
 };
 
@@ -45,4 +37,4 @@ const checkEncargado = (req, res, next) => {
   next();
 };
 
-module.exports = { checkToken, checkJefe, checkEncargado };
+module.exports = { checkToken, checkEncargado };

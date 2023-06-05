@@ -5,7 +5,7 @@ const { checkJefe } = require("../../utils/middlewares");
 
 
 // GET /api/almacenes
-router.get('/jefe',checkJefe, async(req, res) => {
+router.get('/jefe',checkJefeEquipo, async(req, res) => {
     try {
         const [result] = await getAllAlmacenes();
         res.json(result);
