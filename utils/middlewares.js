@@ -29,6 +29,7 @@ const checkToken = async (req, res, next) => {
   next();
 };
 
+
 const checkOperario = (req, res, next) => {
   if (req.user.rol != 'operario') {
     const error = new HttpError('Debes ser usuario operario', 403);
