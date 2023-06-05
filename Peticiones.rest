@@ -1,5 +1,9 @@
 @host = http://localhost:3000
 
+
+GET {{host}}/api/almacenes/jefe
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3NiwidXNlcl9yb2xlIjoiYWRtaW4iLCJleHAiOjE2ODg0NzIxNTEsImlhdCI6MTY4NTg4MDE1MX0.MSiivevkCdgiUgO9YfQIGXTt4k1PIfjUPqPXbPlJElA
+
 #################
 #################
 #################
@@ -15,3 +19,11 @@ Content-Type: application/json
     "email": "jreyes@gmail.com",
     "password": "jreyes1234"
 }
+
+###
+GET {{host}}/api/usuarios
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3NiwidXNlcl9yb2xlIjoiYWRtaW4iLCJleHAiOjE2ODg0NzIxNTEsImlhdCI6MTY4NTg4MDE1MX0.MSiivevkCdgiUgO9YfQIGXTt4k1PIfjUPqPXbPlJElA
+
+###
+GET {{host}}/api/usuarios/4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3NiwidXNlcl9yb2xlIjoiYWRtaW4iLCJleHAiOjE2ODg0NzIxNTEsImlhdCI6MTY4NTg4MDE1MX0.MSiivevkCdgiUgO9YfQIGXTt4k1PIfjUPqPXbPlJElA

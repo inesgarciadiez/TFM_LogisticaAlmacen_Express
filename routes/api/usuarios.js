@@ -27,8 +27,6 @@ router.post('/login', async (req, res) => {
         token: createToken(user)
     });
 
-    
-
 });
 
 module.exports = router;

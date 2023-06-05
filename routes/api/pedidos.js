@@ -1,5 +1,5 @@
 const { getAllByEstadosYUsuario } = require("../../models/pedido.model");
-const { checkOperario } = require("../../utils/middlewares");
+const { checkOperario } = require("../../utils/middlewares.js");
 const { HttpError } = require("../../utils/errores");
 
 const router = require("express").Router();
