@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { getAllAlmacenes } = require('../../models/almacenes.model');
+const { getAllAlmacenes } = require('../../models/almacen.model');
 const { checkJefeEquipo } = require('../../utils/middlewares')
 
 

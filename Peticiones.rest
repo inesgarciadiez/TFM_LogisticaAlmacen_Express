@@ -2,7 +2,7 @@
 
 
 GET {{host}}/api/almacenes/jefe
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3NiwidXNlcl9yb2xlIjoiYWRtaW4iLCJleHAiOjE2ODg0NzIxNTEsImlhdCI6MTY4NTg4MDE1MX0.MSiivevkCdgiUgO9YfQIGXTt4k1PIfjUPqPXbPlJElA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJleHBfYXQiOjE2ODg1OTAxMDcsImlhdCI6MTY4NTk5ODEwN30.qLRF6xRe5UY3qynj1unGB4GKWudLLTzOQY6uqlmUYAg
 
 #################
 #################
@@ -16,14 +16,37 @@ POST {{host}}/api/usuarios/login
 Content-Type: application/json
 
 {
-    "email": "jreyes@gmail.com",
-    "password": "jreyes1234"
+    "email": "cmedina@gmail.com",
+    "password": "cmedina1234"
 }
 
 ###
 GET {{host}}/api/usuarios
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3NiwidXNlcl9yb2xlIjoiYWRtaW4iLCJleHAiOjE2ODg0NzIxNTEsImlhdCI6MTY4NTg4MDE1MX0.MSiivevkCdgiUgO9YfQIGXTt4k1PIfjUPqPXbPlJElA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJleHBfYXQiOjE2ODg1OTAxMDcsImlhdCI6MTY4NTk5ODEwN30.qLRF6xRe5UY3qynj1unGB4GKWudLLTzOQY6uqlmUYAg
 
 ###
 GET {{host}}/api/usuarios/4
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3NiwidXNlcl9yb2xlIjoiYWRtaW4iLCJleHAiOjE2ODg0NzIxNTEsImlhdCI6MTY4NTg4MDE1MX0.MSiivevkCdgiUgO9YfQIGXTt4k1PIfjUPqPXbPlJElA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJleHBfYXQiOjE2ODg1OTAxMDcsImlhdCI6MTY4NTk5ODEwN30.qLRF6xRe5UY3qynj1unGB4GKWudLLTzOQY6uqlmUYAg
+
+###
+PUT {{host}}/api/usuarios/4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJleHBfYXQiOjE2ODg1OTAxMDcsImlhdCI6MTY4NTk5ODEwN30.qLRF6xRe5UY3qynj1unGB4GKWudLLTzOQY6uqlmUYAg
+Content-Type: application/json
+
+{
+    "nombre": "Berto",
+    "apellido": "Romero",
+    "rol": "encargado"
+}
+
+###
+POST {{host}}/api/usuarios
+Content-Type: application/json
+
+{
+    "nombre": "Cristina",
+    "apellido": "Medina",
+    "email": "cmedina@gmail.com",
+    "password":"cmedina1234",
+    "rol": "encargado"
+}
