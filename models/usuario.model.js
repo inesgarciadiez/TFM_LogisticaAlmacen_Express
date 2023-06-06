@@ -34,10 +34,18 @@ const update = (usuarioId, { nombre, apellido }, rolId) => {
   );
 };
 
+const create = ({ nombre, apellido, email }, passwordEncrip, rolId) => {
+  return db.query(
+    `INSERT INTO usuarios (nombre, apellido, email, contraseña, rol_id) values (?, ?, ?, ?, ?)`,
+    [nombre, apellido, email, passwordEncrip, rolId]
+  );
+};
+
 module.exports = {
   getById,
   getByEmail,
   getAll,
   getAllByRol,
   update,
+  create,
 };
