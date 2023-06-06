@@ -7,6 +7,7 @@ const {
   getById,
   getAllByRol,
   update,
+  create,
 } = require('../../models/usuario.model');
 const { createToken } = require('../../utils/helpers');
 const { checkToken, checkJefeEquipo } = require('../../utils/middlewares');
@@ -190,5 +191,57 @@ router.put('/:usuarioId', checkToken, checkJefeEquipo, async (req, res) => {
     return res.status(errorMetodo.codigoEstado).json(errorMetodo);
   }
 });
+
+// POST /api/usuarios
+router.post('/', async (req, res) => {
+  //Compruebo la petición
+  if (
+    req.body.nombre === '' ||
+    req.body.apellido === '' ||
+    req.body.email === '' ||
+    req.body.password === ''
+  ) {
+    const error = new HttpError(
+      'El nombre, el apellido, el email y la contraseña deben estar rellenos',
+      400
+    );
+    return res.status(error.codigoEstado).json(error);
+  }
+
+  let rolId;
+  try {
+    const [rol] = await getByRol(req.body.rol);
+    if (rol.length === 0) {
+      const error = new HttpError(
+        'El rol debe ser un rol registrado en la tabla de roles',
+        400
+      );
+      return res.status(error.codigoEstado).json(error);
+    }
+    rolId = rol[0].id;
+  } catch (error) {
+    const errorMetodo = new HttpError(
+      `Error en el acceso al recuperar el rol de la petición: ${error.message}`,
+      422
+    );
+    return res.status(errorMetodo.codigoEstado).json(errorMetodo);
+  }
+
+  //Encripto la contraseña
+  const passwordEncrip = bcrypt.hashSync(req.body.password, 8);
+
+  try {
+    const [result] = await create(req.body, passwordEncrip, rolId);
+    const [usuarioById] = await getById(result.insertId);
+    res.json(usuarioById[0]);
+  } catch (error) {
+    const errorMetodo = new HttpError(
+      `Error en el POST: ${error.message}`,
+      422
+    );
+    return res.status(errorMetodo.codigoEstado).json(errorMetodo);
+  }
+});
+
 
 module.exports = router;

@@ -16,8 +16,8 @@ POST {{host}}/api/usuarios/login
 Content-Type: application/json
 
 {
-    "email": "jreyes@gmail.com",
-    "password": "jreyes1234"
+    "email": "cmedina@gmail.com",
+    "password": "cmedina1234"
 }
 
 ###
@@ -36,5 +36,17 @@ Content-Type: application/json
 {
     "nombre": "Berto",
     "apellido": "Romero",
+    "rol": "encargado"
+}
+
+###
+POST {{host}}/api/usuarios
+Content-Type: application/json
+
+{
+    "nombre": "Cristina",
+    "apellido": "Medina",
+    "email": "cmedina@gmail.com",
+    "password":"cmedina1234",
     "rol": "encargado"
 }
