@@ -19,8 +19,25 @@ const getAll = () => {
     INNER JOIN roles AS rl ON us.rol_id = rl.id`);
 };
 
+const getAllByRol = (usuarioViejoRol) => {
+  return db.query(
+    `SELECT id, nombre, apellido FROM usuarios
+    WHERE rol_id = ?`,
+    [usuarioViejoRol]
+  );
+};
+
+const update = (usuarioId, { nombre, apellido }, rolId) => {
+  return db.query(
+    `UPDATE usuarios SET nombre = ?, apellido = ?, rol_id = ? WHERE id = ?`,
+    [nombre, apellido, rolId, usuarioId]
+  );
+};
+
 module.exports = {
   getById,
   getByEmail,
   getAll,
+  getAllByRol,
+  update,
 };
