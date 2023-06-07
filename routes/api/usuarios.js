@@ -34,7 +34,7 @@ router.post('/login', async (req, res) => {
   // Recuperamos el usuario
   const user = users[0];
 
-  console.log(req.body.password, user.contraseña);
+  console.log(users[0].rol_id);
   // ¿Coinciden las password?
   const iguales = bcrypt.compareSync(req.body.password, user.contraseña);
   if (!iguales) {
@@ -44,7 +44,8 @@ router.post('/login', async (req, res) => {
   res.json({
     success: 'Login correcto',
     token: createToken(user),
-  });
+    rol: users[0].rol_id
+    });
 });
 
 // GET /api/usuarios
