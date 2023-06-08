@@ -11,6 +11,14 @@ const getAllByEstadosYUsuario = (estadosOperario, usuarioId) => {
   );
 };
 
+const updateCloseState = (estado, pedidoId ) => {
+  console.log(estado)
+  return db.query(
+    `UPDATE pedidos SET estado_id = ? WHERE id = ?`,
+    [estado, pedidoId]
+  );
+};
+
 module.exports = {
-  getAllByEstadosYUsuario,
+  getAllByEstadosYUsuario, updateCloseState 
 };
