@@ -1,4 +1,4 @@
-const { getAllByEstadosYUsuario, updateCloseState } = require("../../models/pedido.model");
+const { getAllByEstadosYUsuario, updateState, getAllClosedStateAndUser } = require("../../models/pedido.model");
 const { checkOperario } = require("../../utils/middlewares.js");
 const { HttpError } = require("../../utils/errores");
 
@@ -27,13 +27,27 @@ router.get("/operario", checkOperario, async (req, res) => {
   }
 });
 
-// GET /api/pedidos/operario/estado
-router.put("/operario/:estado", checkOperario, async (req, res) => {
+// GET /api/pedidos/operario
+router.get("/operario/:estado", checkOperario, async (req, res) => {
 
-  console.log(req.params.estado)
-  const estadoId = req.params.estado;
+  const usuarioId = req.user.id;
   try {
-    const [result] = await updateCloseState(estadoId, req.body.referencia);
+    const [result] = await getAllClosedStateAndUser(req.params.estado, usuarioId);
+    res.json(result);
+  } catch (error) {
+    const errorMetodo = new HttpError(
+      `Error en el acceso: ${error.message}`,
+      422
+    );
+    return res.status(errorMetodo.codigoEstado).json(errorMetodo);
+  }
+});
+
+// PUT /api/pedidos/operario/referencia/estado
+router.put("/operario/:referencia/:estado", checkOperario, async (req, res) => {
+
+  try {
+    const [result] = await updateState(req.params.estado, req.params.referencia);
     res.json(result);
   } catch (error) {
     const errorMetodo = new HttpError(
