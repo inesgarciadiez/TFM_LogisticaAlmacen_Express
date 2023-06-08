@@ -4,7 +4,7 @@ const { getAllPedidos } = require('../../models/pedidos.model');
 
 
 // GET /api/pedidos
-router.get('/encargado', checkEncargado, async(req, res) => {
+router.get('/encargado',async(req, res) => {
     try {
         const [result] = await getAllPedidos();
         res.json(result);
