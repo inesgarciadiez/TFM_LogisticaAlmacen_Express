@@ -2,13 +2,13 @@ const getAllAlmacenes = () => {
   return db.query(`SELECT * FROM almacenes`);
 };
 
-const update = (usuarioId) => {
+function update(usuarioId) {
   return db.query(
     `UPDATE almacenes SET responsable_id = null
       WHERE responsable_id = ?`,
     [usuarioId]
   );
-};
+}
 
 const getAlmacenByNombre = (almacenDestino) => {
   return db.query(
