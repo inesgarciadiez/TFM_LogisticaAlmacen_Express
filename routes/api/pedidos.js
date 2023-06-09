@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const { checkEncargado } = require("../../utils/middlewares")
-const { getAllPedidos } = require('../../models/pedidos.model');
-const { getAllByEstadosYUsuario, updateState, getAllClosedStateAndUser } = require("../../models/pedido.model");
+const { getAllByEstadosYUsuario, updateState, getAllClosedStateAndUser, getAllPedidos } = require("../../models/pedido.model");
 const { checkOperario } = require("../../utils/middlewares.js");
 const { HttpError } = require("../../utils/errores");
 const { getById } = require('../../models/pedido.model');

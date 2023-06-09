@@ -44,7 +44,11 @@ const getById = (pedidoId) => {
   );
 };
 
+const getAllPedidos = () => {
+  return db.query(`SELECT * FROM pedidos`);
+};
+
 module.exports = {
   getAllByEstadosYUsuario, updateState, getAllClosedStateAndUser,
-  getById,
+  getById, getAllPedidos,
 };
