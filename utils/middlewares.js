@@ -29,6 +29,13 @@ const checkToken = async (req, res, next) => {
   next();
 };
 
+const checkEncargado = (req, res, next) => {
+  if (req.user.rol != "encargado") {
+    const error = new HttpError("Debes ser usuario encargado", 403);
+    return res.status(error.codigoEstado).json(error);
+  }
+  next();
+};
 
 const checkOperario = (req, res, next) => {
   if (req.user.rol != 'operario') {
@@ -46,4 +53,4 @@ const checkJefeEquipo = (req, res, next) => {
   next();
 };
 
-module.exports = { checkToken, checkOperario, checkJefeEquipo };
+module.exports = { checkToken, checkOperario, checkJefeEquipo, checkEncargado };

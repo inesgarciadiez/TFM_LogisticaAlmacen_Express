@@ -1,14 +1,16 @@
+const router = require("express").Router();
+const { checkEncargado } = require("../../utils/middlewares")
+const { getAllPedidos } = require('../../models/pedidos.model');
+const { getAllByEstadosYUsuario, updateState, getAllClosedStateAndUser } = require("../../models/pedido.model");
+const { checkOperario } = require("../../utils/middlewares.js");
+const { HttpError } = require("../../utils/errores");
+
 const {
   getAllByEstadosYUsuario,
   getById,
   updateState, 
   getAllClosedStateAndUser
 } = require('../../models/pedido.model');
-const { checkOperario } = require('../../utils/middlewares.js');
-const { HttpError } = require('../../utils/errores');
-const { getAlmacenByNombre } = require('../../models/almacen.model');
-
-const router = require('express').Router();
 
 const estadosOperario = [
   'NUEVO',
@@ -93,6 +95,17 @@ router.put("/operario/:referencia/:estado", checkOperario, async (req, res) => {
   }
 });
 
+// GET /api/pedidos/encargado
+router.get('/encargado', checkEncargado, async(req, res) => {
+  try {
+      const [result] = await getAllPedidos();
+      res.json(result);
+      console.log(result)
+  } catch (error) {
+      res.status(503)
+          .json({ fatal: error.message });
+  }
+}
 // GET /api/pedidos/pedidoId
 router.get('/:pedidoId', async (req, res) => {
   const { pedidoId } = req.params;
