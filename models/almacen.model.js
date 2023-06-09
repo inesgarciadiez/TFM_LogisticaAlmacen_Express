@@ -17,8 +17,16 @@ const getAlmacenByNombre = (almacenDestino) => {
   );
 };
 
+const create = ({nombre, responsable_id, direccion, ciudad, codigo_postal}) => {
+  return db.query(
+    `INSERT INTO almacenes (nombre, responsable_id, direccion, ciudad, codigo_postal) values (?, ?, ?, ?, ?)`,
+    [nombre, responsable_id, direccion, ciudad, codigo_postal]
+  );
+};
+
 module.exports = {
   getAllAlmacenes,
   update,
   getAlmacenByNombre,
+  create,
 };

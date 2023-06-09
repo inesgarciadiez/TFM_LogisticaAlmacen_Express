@@ -54,12 +54,26 @@ POST {{host}}/api/usuarios
 Content-Type: application/json
 
 {
-    "nombre": "Cristina",
+    "nombre": "Diego",
     "apellido": "Medina",
-    "email": "cmedina@gmail.com",
-    "password":"cmedina1234",
+    "email": "dmedina@gmail.com",
+    "password":"dmedina1234",
     "rol": "encargado"
 }
 ###
 GET {{host}}/api/pedidos/4
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoyLCJleHBfYXQiOjE2ODg4ODk1MDgsImlhdCI6MTY4NjI5NzUwOH0.4hGgq8cljJh96b7puHI_0sOtJaXwCWv8F8nhqCeSQxo
+
+
+###
+POST {{host}}/api/almacenes
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoyLCJleHBfYXQiOjE2ODg4ODk1MDgsImlhdCI6MTY4NjI5NzUwOH0.4hGgq8cljJh96b7puHI_0sOtJaXwCWv8F8nhqCeSQxo
+Content-Type: application/json
+
+{
+    "nombre": "De la Fuente",
+    "responsable_id": 4,
+    "direccion": "C/Fuente 123",
+    "ciudad": "Catarroja",
+    "codigo_postal": 46470
+}
