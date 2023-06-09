@@ -13,7 +13,7 @@ const { createToken } = require('../../utils/helpers');
 const { checkToken, checkJefeEquipo } = require('../../utils/middlewares');
 const { HttpError } = require('../../utils/errores');
 const { getAllByEstadosYUsuario } = require('../../models/pedido.model');
-const { update: updateAlmacenes } = require('../../models/almacen.model');
+const { update: updateAlmacenes } = require('../../models/usuario.model');
 const { getByRol } = require('../../models/rol.model');
 
 const estadosActivosOperario = [

@@ -77,3 +77,16 @@ Content-Type: application/json
     "ciudad": "Catarroja",
     "codigo_postal": 46470
 }
+
+###
+PUT {{host}}/api/almacenes/5
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoyLCJleHBfYXQiOjE2ODg4ODk1MDgsImlhdCI6MTY4NjI5NzUwOH0.4hGgq8cljJh96b7puHI_0sOtJaXwCWv8F8nhqCeSQxo
+Content-Type: application/json
+
+{
+    "nombre": "De la Fuente",
+    "responsable_id": 4,
+    "direccion": "C/Fuente 456",
+    "ciudad": "Albal",
+    "codigo_postal": 46470
+}

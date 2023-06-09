@@ -2,13 +2,13 @@ const getAllAlmacenes = () => {
   return db.query(`SELECT * FROM almacenes`);
 };
 
-function update(usuarioId) {
+/* function update(usuarioId) {
   return db.query(
     `UPDATE almacenes SET responsable_id = null
       WHERE responsable_id = ?`,
     [usuarioId]
   );
-}
+} */
 
 const getAlmacenByNombre = (almacenDestino) => {
   return db.query(
@@ -24,9 +24,16 @@ const create = ({nombre, responsable_id, direccion, ciudad, codigo_postal}) => {
   );
 };
 
+const updateAlmacen = (id, {nombre, responsable_id, direccion, ciudad, codigo_postal}) => {
+  return db.query(
+    `UPDATE almacenes SET nombre = ?, responsable_id = ?, direccion = ?, ciudad = ?, codigo_postal = 0 WHERE id = ?`,
+    [nombre, responsable_id, direccion, ciudad, codigo_postal, id]
+  );
+};
+
 module.exports = {
   getAllAlmacenes,
-  update,
+  updateAlmacen,
   getAlmacenByNombre,
   create,
 };
