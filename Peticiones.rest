@@ -1,0 +1,65 @@
+@host = http://localhost:3000
+
+
+GET {{host}}/api/almacenes/jefe
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJleHBfYXQiOjE2ODg1OTAxMDcsImlhdCI6MTY4NTk5ODEwN30.qLRF6xRe5UY3qynj1unGB4GKWudLLTzOQY6uqlmUYAg
+
+#################
+#################
+#################
+################# API logística
+GET {{host}}/api/pedidos/operario
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJ1c2VyX3JvbCI6MSwiaWF0IjoxNjg1OTc2MjM1fQ.0QhbMCkYWFH8npVmZMV6Bq_infVRTFo2QHoY_fzXy3U
+
+###
+GET {{host}}/api/pedidos/operario/7
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJ1c2VyX3JvbCI6MSwiaWF0IjoxNjg1OTc2MjM1fQ.0QhbMCkYWFH8npVmZMV6Bq_infVRTFo2QHoY_fzXy3U
+
+
+###
+PUT {{host}}/api/pedidos/operario/2
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJ1c2VyX3JvbCI6MSwiaWF0IjoxNjg1OTc2MjM1fQ.0QhbMCkYWFH8npVmZMV6Bq_infVRTFo2QHoY_fzXy3U
+
+
+###
+POST {{host}}/api/usuarios/login
+Content-Type: application/json
+
+{
+    "email": "bromero@gmail.com",
+    "password": "bromero1234"
+}
+
+###
+GET {{host}}/api/usuarios
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJleHBfYXQiOjE2ODg1OTAxMDcsImlhdCI6MTY4NTk5ODEwN30.qLRF6xRe5UY3qynj1unGB4GKWudLLTzOQY6uqlmUYAg
+
+###
+GET {{host}}/api/usuarios/4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJleHBfYXQiOjE2ODg1OTAxMDcsImlhdCI6MTY4NTk5ODEwN30.qLRF6xRe5UY3qynj1unGB4GKWudLLTzOQY6uqlmUYAg
+
+###
+PUT {{host}}/api/usuarios/4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJleHBfYXQiOjE2ODg1OTAxMDcsImlhdCI6MTY4NTk5ODEwN30.qLRF6xRe5UY3qynj1unGB4GKWudLLTzOQY6uqlmUYAg
+Content-Type: application/json
+
+{
+    "nombre": "Berto",
+    "apellido": "Romero",
+    "rol": "encargado"
+}
+
+###
+POST {{host}}/api/usuarios
+Content-Type: application/json
+
+{
+    "nombre": "Cristina",
+    "apellido": "Medina",
+    "email": "cmedina@gmail.com",
+    "password":"cmedina1234",
+    "rol": "encargado"
+}
+###
+GET {{host}}/api/pedidos/4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoyLCJleHBfYXQiOjE2ODg4ODk1MDgsImlhdCI6MTY4NjI5NzUwOH0.4hGgq8cljJh96b7puHI_0sOtJaXwCWv8F8nhqCeSQxo
