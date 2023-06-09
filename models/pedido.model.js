@@ -32,6 +32,19 @@ const updateState = (estado, pedidoId ) => {
   );
 };
 
+const getById = (pedidoId) => {
+  return db.query(
+    `SELECT pe.id AS referencia, fecha_creacion, fecha_salida, matricula, detalles, comentario_error, pe.responsable_id, al.nombre AS almacen_origen, al2.nombre AS almacen_destino, es.estado FROM pedidos AS pe
+    INNER JOIN almacenes AS al ON pe.almacen_origen_id = al.id
+    INNER JOIN almacenes AS al2 ON pe.almacen_destino_id = al2.id
+    INNER JOIN estados AS es ON pe.estado_id = es.id  
+  WHERE pe.id = ?
+  ORDER BY fecha_creacion ASC`,
+    [pedidoId]
+  );
+};
+
 module.exports = {
-  getAllByEstadosYUsuario, updateState, getAllClosedStateAndUser
+  getAllByEstadosYUsuario, updateState, getAllClosedStateAndUser,
+  getById,
 };

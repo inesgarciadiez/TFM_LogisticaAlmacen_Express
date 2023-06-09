@@ -10,7 +10,15 @@ const update = (usuarioId) => {
   );
 };
 
+const getAlmacenByNombre = (almacenDestino) => {
+  return db.query(
+    `SELECT nombre, responsable_id, direccion, ciudad, codigo_postal FROM almacenes WHERE nombre = ?`,
+    [almacenDestino]
+  );
+};
+
 module.exports = {
   getAllAlmacenes,
   update,
+  getAlmacenByNombre,
 };

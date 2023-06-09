@@ -26,8 +26,8 @@ POST {{host}}/api/usuarios/login
 Content-Type: application/json
 
 {
-    "email": "cmedina@gmail.com",
-    "password": "cmedina1234"
+    "email": "bromero@gmail.com",
+    "password": "bromero1234"
 }
 
 ###
@@ -60,3 +60,6 @@ Content-Type: application/json
     "password":"cmedina1234",
     "rol": "encargado"
 }
+###
+GET {{host}}/api/pedidos/4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoyLCJleHBfYXQiOjE2ODg4ODk1MDgsImlhdCI6MTY4NjI5NzUwOH0.4hGgq8cljJh96b7puHI_0sOtJaXwCWv8F8nhqCeSQxo
