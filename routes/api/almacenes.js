@@ -17,7 +17,7 @@ router.get('/jefe',checkToken, checkJefeEquipo, async(req, res) => {
 });
 
 // POST /api/almacenes
-router.post('/', async(req, res) => {
+router.post('/', checkToken, checkJefeEquipo, async(req, res) => {
 
 if(
     req.body.nombre === '' ||
@@ -45,8 +45,8 @@ try {
     }
 });
 
-// PUT /api/almacenes/
-router.put('/:id', async(req, res) => {
+// PUT /api/almacenes/id
+router.put('/:id',checkToken, checkJefeEquipo, async(req, res) => {
     const { id } = req.params;
 if(
     req.body.nombre === '' ||
@@ -62,8 +62,7 @@ if(
     return res.status(error.codigoEstado).json(error);
 }
 try {
-    const [result] = await updateAlmacen(id);
-    console.log(result)
+    const [result] = await updateAlmacen(req.body, id);
     res.json(result);
     } catch (error) {
         const errorMetodo = new HttpError(
