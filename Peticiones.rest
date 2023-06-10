@@ -1,9 +1,5 @@
 @host = http://localhost:3000
 
-
-GET {{host}}/api/almacenes/jefe
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJleHBfYXQiOjE2ODg1OTAxMDcsImlhdCI6MTY4NTk5ODEwN30.qLRF6xRe5UY3qynj1unGB4GKWudLLTzOQY6uqlmUYAg
-
 #################
 #################
 #################
@@ -75,5 +71,23 @@ Content-Type: application/json
     "responsable_id": 4,
     "direccion": "C/Fuente 123",
     "ciudad": "Catarroja",
+    "codigo_postal": 46470
+}
+
+###
+GET {{host}}/api/almacenes/jefe
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJleHBfYXQiOjE2ODg1OTAxMDcsImlhdCI6MTY4NTk5ODEwN30.qLRF6xRe5UY3qynj1unGB4GKWudLLTzOQY6uqlmUYAg
+
+
+###
+PUT {{host}}/api/almacenes/5
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoyLCJleHBfYXQiOjE2ODg4ODk1MDgsImlhdCI6MTY4NjI5NzUwOH0.4hGgq8cljJh96b7puHI_0sOtJaXwCWv8F8nhqCeSQxo
+Content-Type: application/json
+
+{
+    "nombre": "De la",
+    "responsable_id": 4,
+    "direccion": "C/ 123",
+    "ciudad": "Cat",
     "codigo_postal": 46470
 }
