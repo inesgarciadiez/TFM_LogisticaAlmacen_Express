@@ -22,8 +22,8 @@ POST {{host}}/api/usuarios/login
 Content-Type: application/json
 
 {
-    "email": "bromero@gmail.com",
-    "password": "bromero1234"
+    "email": "jreyes@gmail.com",
+    "password": "jreyes1234"
 }
 
 ###
@@ -90,4 +90,18 @@ Content-Type: application/json
     "direccion": "C/ 123",
     "ciudad": "Cat",
     "codigo_postal": 46470
+}
+
+###
+PUT {{host}}/api/pedidos/1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJyb2xfaWQiOjEsImV4cF9hdCI6MTY4ODk5MDA5MCwiaWF0IjoxNjg2Mzk4MDkwfQ.9Iue8GsB2mY5xbfb18sOXy_TR8q5lN9OFSp5MsQHO18
+//Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoyLCJleHBfYXQiOjE2ODg4ODk1MDgsImlhdCI6MTY4NjI5NzUwOH0.4hGgq8cljJh96b7puHI_0sOtJaXwCWv8F8nhqCeSQxo
+Content-Type: application/json
+
+{
+    "fecha_salida": "2023-08-31",
+    "almacen_origen": "Fuente del Jarro",
+    "almacen_destino": "Las Rosas",
+    "matricula": "5678-DEF",
+    "detalles_carga": "3 bolis azules"
 }

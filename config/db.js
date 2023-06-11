@@ -6,6 +6,7 @@ const pool = mysql.createPool({
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
   database: process.env.DB_NAME,
+  dateStrings: 'date',
 });
 
 global.db = pool.promise();
