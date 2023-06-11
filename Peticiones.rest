@@ -22,8 +22,8 @@ POST {{host}}/api/usuarios/login
 Content-Type: application/json
 
 {
-    "email": "jreyes@gmail.com",
-    "password": "jreyes1234"
+    "email": "sabril@gmail.com",
+    "password": "sabril1234"
 }
 
 ###
@@ -47,14 +47,15 @@ Content-Type: application/json
 
 ###
 POST {{host}}/api/usuarios
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJyb2xfaWQiOjMsImV4cF9hdCI6MTY4OTEwMDk0NSwiaWF0IjoxNjg2NTA4OTQ1fQ.CeC2fPDng26cfmfVg9LVuTYuKvlARdrBtzzjo0x4lKI
 Content-Type: application/json
 
 {
-    "nombre": "Diego",
-    "apellido": "Medina",
-    "email": "dmedina@gmail.com",
-    "password":"dmedina1234",
-    "rol": "encargado"
+    "nombre": "Ernesto",
+    "apellido": "Sevilla",
+    "email": "esevilla@gmail.com",
+    "password":"esevilla1234",
+    "rol": "operario"
 }
 ###
 GET {{host}}/api/pedidos/4
@@ -105,3 +106,5 @@ Content-Type: application/json
     "matricula": "5678-DEF",
     "detalles_carga": "3 bolis azules"
 }
+
+###

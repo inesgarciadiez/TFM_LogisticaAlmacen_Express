@@ -194,7 +194,7 @@ router.put('/:usuarioId', checkToken, checkJefeEquipo, async (req, res) => {
 });
 
 // POST /api/usuarios
-router.post('/', async (req, res) => {
+router.post('/', checkToken, checkJefeEquipo, async (req, res) => {
   //Compruebo la petición
   if (
     req.body.nombre === '' ||
