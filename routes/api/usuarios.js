@@ -148,7 +148,7 @@ router.put('/:usuarioId', checkToken, checkJefeEquipo, async (req, res) => {
       if (usuarioRolViejo === 'jefe de equipo') {
         try {
           const [usuariosJefe] = await getAllByRol(usuarioRolViejo);
-          if ((usuariosJefe.length = 1)) {
+          if (usuariosJefe.length === 1) {
             const error = new HttpError(
               'El usuario no puede cambiar de rol porque es el único jefe de equipo',
               409

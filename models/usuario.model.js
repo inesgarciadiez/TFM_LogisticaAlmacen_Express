@@ -19,11 +19,12 @@ const getAll = () => {
     INNER JOIN roles AS rl ON us.rol_id = rl.id`);
 };
 
-const getAllByRol = (usuarioViejoRol) => {
+const getAllByRol = (usuarioRolNombre) => {
   return db.query(
-    `SELECT id, nombre, apellido FROM usuarios
-    WHERE rol_id = ?`,
-    [usuarioViejoRol]
+    `SELECT us.id, nombre, apellido, email, rol_id FROM usuarios AS us
+    INNER JOIN roles AS rl ON us.rol_id = rl.id
+        WHERE rl.rol = ?`,
+    [usuarioRolNombre]
   );
 };
 
