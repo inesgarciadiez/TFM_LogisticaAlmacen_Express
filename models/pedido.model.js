@@ -32,6 +32,14 @@ const updateState = (estado, pedidoId ) => {
   );
 };
 
+const create = ({ fecha_salida, almacen_origen, almacen_destino, matricula, detalle }) => {
+  return db.query(
+    `INSERT INTO pedidos (fecha_salida, almacen_origen_id, almacen_destino_id, matricula, detalles) values (?, ?, ?, ?, ?)`,
+    [fecha_salida, almacen_origen, almacen_destino, matricula, detalle]
+  );
+};
+
+
 module.exports = {
-  getAllByEstadosYUsuario, updateState, getAllClosedStateAndUser
+  getAllByEstadosYUsuario, updateState, getAllClosedStateAndUser,create
 };
