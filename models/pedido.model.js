@@ -67,8 +67,34 @@ const update = (
   );
 };
 
+const create = (
+  { fecha_salida, matricula, detalles_carga },
+  responsableId,
+  almacenOrigenId,
+  almacenDestinoId,
+  estadoId
+) => {
+  return db.query(
+    `INSERT INTO pedidos (fecha_creacion, fecha_salida, matricula, detalles, comentario_error, responsable_id, almacen_origen_id, almacen_destino_id, estado_id) values (now(), ?, ?, ?, null, ?, ?, ?, ?)`,
+    [
+      fecha_salida,
+      matricula,
+      detalles_carga,
+      responsableId,
+      almacenOrigenId,
+      almacenDestinoId,
+      estadoId,
+    ]
+  );
+};
+
 module.exports = {
-  getAllByEstadosYUsuario, updateState, getAllClosedStateAndUser,
-  getById, getAllPedidos,update,
+  getAllByEstadosYUsuario,
+  updateState,
+  getAllClosedStateAndUser,
+  getById,
+  getAllPedidos,
+  update,
+  create,
 };
 

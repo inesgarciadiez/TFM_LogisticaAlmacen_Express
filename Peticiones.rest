@@ -108,3 +108,14 @@ Content-Type: application/json
 }
 
 ###
+POST {{host}}/api/pedidos
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJyb2xfaWQiOjEsImV4cF9hdCI6MTY4ODk5MDA5MCwiaWF0IjoxNjg2Mzk4MDkwfQ.9Iue8GsB2mY5xbfb18sOXy_TR8q5lN9OFSp5MsQHO18
+Content-Type: application/json
+
+{
+    "fecha_salida": "2023-09-01",
+    "almacen_origen": "ColeVega",
+    "almacen_destino": "Fuente del Jarro",
+    "matricula": "1234-ABC",
+    "detalles_carga": "2 bolis verdes"
+}
