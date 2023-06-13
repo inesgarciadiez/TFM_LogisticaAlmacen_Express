@@ -1,9 +1,5 @@
 @host = http://localhost:3000
 
-
-GET {{host}}/api/almacenes/jefe
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJleHBfYXQiOjE2ODg1OTAxMDcsImlhdCI6MTY4NTk5ODEwN30.qLRF6xRe5UY3qynj1unGB4GKWudLLTzOQY6uqlmUYAg
-
 #################
 #################
 #################
@@ -15,9 +11,8 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJ1c2Vy
 GET {{host}}/api/pedidos/operario/7
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJ1c2VyX3JvbCI6MSwiaWF0IjoxNjg1OTc2MjM1fQ.0QhbMCkYWFH8npVmZMV6Bq_infVRTFo2QHoY_fzXy3U
 
-
 ###
-PUT {{host}}/api/pedidos/operario/2/7
+PUT {{host}}/api/pedidos/operario/1/7
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJ1c2VyX3JvbCI6MSwiaWF0IjoxNjg1OTc2MjM1fQ.0QhbMCkYWFH8npVmZMV6Bq_infVRTFo2QHoY_fzXy3U
 
 
@@ -39,8 +34,8 @@ POST {{host}}/api/usuarios/login
 Content-Type: application/json
 
 {
-    "email": "cmedina@gmail.com",
-    "password": "cmedina1234"
+    "email": "sabril@gmail.com",
+    "password": "sabril1234"
 }
 
 ###
@@ -64,12 +59,68 @@ Content-Type: application/json
 
 ###
 POST {{host}}/api/usuarios
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJyb2xfaWQiOjMsImV4cF9hdCI6MTY4OTEwMDk0NSwiaWF0IjoxNjg2NTA4OTQ1fQ.CeC2fPDng26cfmfVg9LVuTYuKvlARdrBtzzjo0x4lKI
 Content-Type: application/json
 
 {
-    "nombre": "Cristina",
-    "apellido": "Medina",
-    "email": "cmdina@gmail.com",
-    "password":"cmedina1234",
-    "rol": "encargado"
+    "nombre": "Ernesto",
+    "apellido": "Sevilla",
+    "email": "esevilla@gmail.com",
+    "password":"esevilla1234",
+    "rol": "operario"
 }
+###
+GET {{host}}/api/pedidos/4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoyLCJleHBfYXQiOjE2ODg4ODk1MDgsImlhdCI6MTY4NjI5NzUwOH0.4hGgq8cljJh96b7puHI_0sOtJaXwCWv8F8nhqCeSQxo
+
+###
+DELETE {{host}}/api/pedidos/4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoyLCJleHBfYXQiOjE2ODg4ODk1MDgsImlhdCI6MTY4NjI5NzUwOH0.4hGgq8cljJh96b7puHI_0sOtJaXwCWv8F8nhqCeSQxo
+
+###
+POST {{host}}/api/almacenes
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoyLCJleHBfYXQiOjE2ODg4ODk1MDgsImlhdCI6MTY4NjI5NzUwOH0.4hGgq8cljJh96b7puHI_0sOtJaXwCWv8F8nhqCeSQxo
+Content-Type: application/json
+
+{
+    "nombre": "De la Fuente",
+    "responsable_id": 4,
+    "direccion": "C/Fuente 123",
+    "ciudad": "Catarroja",
+    "codigo_postal": 46470
+}
+
+###
+GET {{host}}/api/almacenes/jefe
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJleHBfYXQiOjE2ODg1OTAxMDcsImlhdCI6MTY4NTk5ODEwN30.qLRF6xRe5UY3qynj1unGB4GKWudLLTzOQY6uqlmUYAg
+
+
+###
+PUT {{host}}/api/almacenes/5
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoyLCJleHBfYXQiOjE2ODg4ODk1MDgsImlhdCI6MTY4NjI5NzUwOH0.4hGgq8cljJh96b7puHI_0sOtJaXwCWv8F8nhqCeSQxo
+Content-Type: application/json
+
+{
+    "nombre": "De la",
+    "responsable_id": 4,
+    "direccion": "C/ 123",
+    "ciudad": "Cat",
+    "codigo_postal": 46470
+}
+
+###
+PUT {{host}}/api/pedidos/1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJyb2xfaWQiOjEsImV4cF9hdCI6MTY4ODk5MDA5MCwiaWF0IjoxNjg2Mzk4MDkwfQ.9Iue8GsB2mY5xbfb18sOXy_TR8q5lN9OFSp5MsQHO18
+//Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoyLCJleHBfYXQiOjE2ODg4ODk1MDgsImlhdCI6MTY4NjI5NzUwOH0.4hGgq8cljJh96b7puHI_0sOtJaXwCWv8F8nhqCeSQxo
+Content-Type: application/json
+
+{
+    "fecha_salida": "2023-08-31",
+    "almacen_origen": "Fuente del Jarro",
+    "almacen_destino": "Las Rosas",
+    "matricula": "5678-DEF",
+    "detalles_carga": "3 bolis azules",
+    "comentario_error": "El almacen destino no existe"
+}
+
+###

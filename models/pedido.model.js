@@ -32,14 +32,52 @@ const updateState = (estado, pedidoId ) => {
   );
 };
 
-const create = ({ fecha_salida, almacen_origen, almacen_destino, matricula, detalle }) => {
+const getById = (pedidoId) => {
   return db.query(
-    `INSERT INTO pedidos (fecha_salida, almacen_origen_id, almacen_destino_id, matricula, detalles) values (?, ?, ?, ?, ?)`,
-    [fecha_salida, almacen_origen, almacen_destino, matricula, detalle]
+    `SELECT pe.id AS referencia, fecha_creacion, fecha_salida, matricula, detalles, comentario_error, pe.responsable_id, al.nombre AS almacen_origen, al2.nombre AS almacen_destino, es.estado FROM pedidos AS pe
+    INNER JOIN almacenes AS al ON pe.almacen_origen_id = al.id
+    INNER JOIN almacenes AS al2 ON pe.almacen_destino_id = al2.id
+    INNER JOIN estados AS es ON pe.estado_id = es.id  
+  WHERE pe.id = ?
+  ORDER BY fecha_creacion ASC`,
+    [pedidoId]
   );
 };
 
-
-module.exports = {
-  getAllByEstadosYUsuario, updateState, getAllClosedStateAndUser,create
+const getAllPedidos = () => {
+  return db.query(`SELECT * FROM pedidos`);
 };
+
+const update = (
+  pedidoId,
+  { fecha_salida, matricula, detalles_carga },
+  almacen_origen_id,
+  almacen_destino_id
+) => {
+  return db.query(
+    `UPDATE pedidos SET fecha_salida = ?, matricula = ?, detalles = ?, almacen_origen_id = ?, almacen_destino_id = ? WHERE id = ?`,
+    [
+      fecha_salida,
+      matricula,
+      detalles_carga,
+      almacen_origen_id,
+      almacen_destino_id,
+      pedidoId,
+    ]
+  );
+};
+
+const deletePedido = (pedidoId) => {
+  console.log(pedidoId)
+  return db.query(
+    `DELETE FROM pedidos WHERE id = ?`,
+    [
+      pedidoId
+    ]
+  );
+}
+module.exports = {
+  getAllByEstadosYUsuario, updateState, getAllClosedStateAndUser,
+  getById, getAllPedidos,update, deletePedido
+};
+

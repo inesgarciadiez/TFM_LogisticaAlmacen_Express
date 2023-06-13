@@ -13,7 +13,7 @@ const { createToken } = require('../../utils/helpers');
 const { checkToken, checkJefeEquipo } = require('../../utils/middlewares');
 const { HttpError } = require('../../utils/errores');
 const { getAllByEstadosYUsuario } = require('../../models/pedido.model');
-const { update: updateAlmacenes } = require('../../models/almacen.model');
+const { updateAlmacenes } = require('../../models/almacen.model');
 const { getByRol } = require('../../models/rol.model');
 
 const estadosActivosOperario = [
@@ -148,7 +148,7 @@ router.put('/:usuarioId', checkToken, checkJefeEquipo, async (req, res) => {
       if (usuarioRolViejo === 'jefe de equipo') {
         try {
           const [usuariosJefe] = await getAllByRol(usuarioRolViejo);
-          if ((usuariosJefe.length = 1)) {
+          if (usuariosJefe.length === 1) {
             const error = new HttpError(
               'El usuario no puede cambiar de rol porque es el único jefe de equipo',
               409
@@ -194,7 +194,7 @@ router.put('/:usuarioId', checkToken, checkJefeEquipo, async (req, res) => {
 });
 
 // POST /api/usuarios
-router.post('/', async (req, res) => {
+router.post('/', checkToken, checkJefeEquipo, async (req, res) => {
   //Compruebo la petición
   if (
     req.body.nombre === '' ||
