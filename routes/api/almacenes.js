@@ -5,7 +5,7 @@ const { HttpError } = require('../../utils/errores');
 
 
 // GET /api/almacenes
-router.get('/jefe',checkToken, checkJefeEquipo, async(req, res) => {
+router.get('/',checkToken, async(req, res) => {
     try {
         const [result] = await getAllAlmacenes();
         res.json(result);
