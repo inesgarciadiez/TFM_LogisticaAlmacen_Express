@@ -63,6 +63,7 @@ const checkPedidoPermisos = async (pedido, usuarioId) => {
   return null;
 };
 
+/////////////////////////////
 // GET /api/pedidos/operario
 router.get('/operario', checkOperario, async (req, res) => {
   const usuarioId = req.user.id;
@@ -78,6 +79,7 @@ router.get('/operario', checkOperario, async (req, res) => {
   }
 });
 
+/////////////////////////////
 // GET /api/pedidos/operario
 router.get('/operario/:estado', checkOperario, async (req, res) => {
   const usuarioId = req.user.id;
@@ -96,23 +98,69 @@ router.get('/operario/:estado', checkOperario, async (req, res) => {
   }
 });
 
-// PUT /api/pedidos/operario/referencia/estado
-router.put('/operario/:referencia/:estado', checkOperario, async (req, res) => {
+/////////////////////////////
+// PUT /api/pedidos/operario/enviorevision/pedidoId
+router.put('/operario/enviorevision/:pedidoId', checkOperario, async (req, res) => {
+  const { pedidoId } = req.params;
+
+  let pedido;
+
   try {
-    const [result] = await updateState(
-      req.params.estado,
-      req.params.referencia
-    );
-    res.json(result);
+    const [pedidoById] = await getById(pedidoId);
+    if (pedidoById.length === 0) {
+      const error = new HttpError('No existe el pedido con ese Id', 404);
+      return res.status(error.codigoEstado).json(error);
+    }
+    pedido = pedidoById[0];
   } catch (error) {
     const errorMetodo = new HttpError(
-      `Error en el acceso: ${error.message}`,
+      `Error en el acceso de recuperar pedido: ${error.message}`,
+      422
+    );
+    return res.status(errorMetodo.codigoEstado).json(errorMetodo);
+  }
+
+  // Compruebo que el usuario que realiza la petición puede modificar el estado del pedido (operario responsable)
+  let mensajeError = await checkOperarioResponsable(pedido, req.user.id);
+  if (mensajeError) {
+    const error = new HttpError(mensajeError, 403);
+    return res.status(error.codigoEstado).json(error);
+  }
+
+  //Si el estado es NUEVO o ERROR el pedido pasará a PTE_SALIDA. 
+  //Si el estado es LISTO_SALIDA el pedido pasará a PTE_ENTRADA
+  try {
+    console.log(pedido.estado);
+    let nuevoEstado;
+    switch (pedido.estado) {
+      case 'NUEVO':
+      case 'ERROR':
+        nuevoEstado = 'PTE_SALIDA';
+        break;
+      case 'LISTO_SALIDA':
+        nuevoEstado = 'PTE_ENTRADA';
+        break;
+      default:
+        const error = new HttpError(
+          'El pedido no está listo para revisión',
+          400
+        );
+        return res.status(error.codigoEstado).json(error);
+    }
+
+    const [result] = await updateState(nuevoEstado, pedidoId);
+    const [pedidoById] = await getById(pedidoId);
+    res.json(pedidoById[0]);
+  } catch (error) {
+    const errorMetodo = new HttpError(
+      `Error al actualizar el estado: ${error.message}`,
       422
     );
     return res.status(errorMetodo.codigoEstado).json(errorMetodo);
   }
 });
 
+/////////////////////////////
 // GET /api/pedidos/encargado
 router.get('/encargado', checkEncargado, async (req, res) => {
   try {
@@ -123,6 +171,8 @@ router.get('/encargado', checkEncargado, async (req, res) => {
     res.status(503).json({ fatal: error.message });
   }
 });
+
+/////////////////////////////
 // GET /api/pedidos/pedidoId
 router.get('/:pedidoId', async (req, res) => {
   const { pedidoId } = req.params;
@@ -153,6 +203,7 @@ router.get('/:pedidoId', async (req, res) => {
   res.json(pedido);
 });
 
+/////////////////////////////
 // PUT /api/pedidos/pedidoId
 router.put('/:pedidoId', checkOperario, async (req, res) => {
   const { pedidoId } = req.params;
@@ -262,6 +313,7 @@ router.put('/:pedidoId', checkOperario, async (req, res) => {
   }
 });
 
+/////////////////////////////
 // POST /api/pedidos
 router.post('/', checkOperario, async (req, res) => {
   //Compruebo la petición
