@@ -11,6 +11,17 @@ const getAllByEstadosYUsuario = (estadosOperario, usuarioId) => {
   );
 };
 
+const getAllPedidosByEncargado = (estadosEncargado, usuarioId) => {
+  return db.query(`SELECT pe.id as referencia, fecha_salida, matricula, alo.nombre as almacen_origen, ald.nombre as almacen_destino, es.estado FROM Logistica_Almacen.pedidos AS pe
+  INNER JOIN Logistica_Almacen.almacenes AS alo ON pe.almacen_origen_id = alo.id
+  INNER JOIN Logistica_Almacen.almacenes AS ald ON pe.almacen_destino_id = ald.id
+  INNER JOIN Logistica_Almacen.estados AS es ON pe.estado_id = es.id
+  WHERE (estado = 'PTE_SALIDA' AND alo.responsable_id = ?)
+  OR (estado = 'PTE_ENTRADA' AND ald.responsable_id = ?) ORDER BY pe.id ASC`,
+  [estadosEncargado, usuarioId, usuarioId]
+  );
+};
+
 const getAllClosedStateAndUser = (estadosOperario, usuarioId) => {
   return db.query(
     `SELECT pe.id as referencia, fecha_salida, matricula, al.nombre as almacen_origen, al2.nombre as almacen_destino, es.estado FROM Logistica_Almacen.pedidos AS pe
@@ -46,5 +57,5 @@ const getById = (pedidoId) => {
 
 module.exports = {
   getAllByEstadosYUsuario, updateState, getAllClosedStateAndUser,
-  getById,
+  getById, getAllPedidosByEncargado
 };
