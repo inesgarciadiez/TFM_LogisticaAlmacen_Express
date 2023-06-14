@@ -87,6 +87,13 @@ const create = (
   );
 };
 
+const updateEstadoYComentario = (estado, comentarioError, pedidoId) => {
+  return db.query(
+    `UPDATE pedidos SET estado_id = (SELECT id FROM estados WHERE estado = ?) , comentario_error = ? WHERE id = ?`,
+    [estado, comentarioError, pedidoId]
+  );
+};
+
 module.exports = {
   getAllByEstadosYUsuario,
   updateState,
@@ -95,4 +102,5 @@ module.exports = {
   getAllPedidos,
   update,
   create,
+  updateEstadoYComentario,
 };

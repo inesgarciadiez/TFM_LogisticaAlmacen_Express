@@ -7,6 +7,7 @@ const {
   getAllPedidos,
   update,
   create,
+  updateEstadoYComentario,
 } = require('../../models/pedido.model');
 const { checkOperario } = require('../../utils/middlewares.js');
 const { HttpError } = require('../../utils/errores');
@@ -37,13 +38,7 @@ const checkOperarioResponsable = async (pedido, usuarioId) => {
   return null;
 };
 
-const checkPedidoPermisos = async (pedido, usuarioId) => {
-  // Si el estado del pedido es uno de los estados de operario y el responsable(operario) no es el usuario que hace la petición --> error.
-  let errorOperario = checkOperarioResponsable(pedido, usuarioId);
-  if (errorOperario) {
-    return errorOperario;
-  }
-
+const checkEncargadoResponsable = async (pedido, usuarioId) => {
   // Si el estado del pedido es PTE_SALIDA, busco el responsable(encargado) del almacen_oriden del pedido. Si no es igual al usuario que hace la petición --> error.
   if (pedido.estado === 'PTE_SALIDA') {
     const [almacenOrigen] = await getAlmacenByNombre(pedido.almacen_origen);
@@ -58,6 +53,20 @@ const checkPedidoPermisos = async (pedido, usuarioId) => {
     if (almacenDestino[0].responsable_id != usuarioId) {
       return 'El pedido no está a cargo del usuario solicitante (ENCARGADO DESTINO)';
     }
+  }
+
+  return null;
+};
+
+const checkPedidoPermisos = async (pedido, usuarioId) => {
+  let errorOperario = checkOperarioResponsable(pedido, usuarioId);
+  if (errorOperario) {
+    return errorOperario;
+  }
+
+  let errorEncargado = checkEncargadoResponsable(pedido, usuarioId);
+  if (errorEncargado) {
+    return errorEncargado;
   }
 
   return null;
@@ -163,6 +172,7 @@ router.put(
   }
 );
 
+/////////////////////////////
 // PUT /api/pedidos/operario/cerrar/pedidoId
 router.put('/operario/cerrar/:pedidoId', checkOperario, async (req, res) => {
   const { pedidoId } = req.params;
@@ -224,6 +234,141 @@ router.get('/encargado', checkEncargado, async (req, res) => {
     res.status(503).json({ fatal: error.message });
   }
 });
+
+/////////////////////////////
+// PUT /api/pedidos/encargado/aprobar/pedidoId
+router.put('/encargado/aprobar/:pedidoId', checkEncargado, async (req, res) => {
+  const { pedidoId } = req.params;
+
+  let pedido;
+
+  try {
+    const [pedidoById] = await getById(pedidoId);
+    if (pedidoById.length === 0) {
+      const error = new HttpError('No existe el pedido con ese Id', 404);
+      return res.status(error.codigoEstado).json(error);
+    }
+    pedido = pedidoById[0];
+  } catch (error) {
+    const errorMetodo = new HttpError(
+      `Error en el acceso de recuperar pedido: ${error.message}`,
+      422
+    );
+    return res.status(errorMetodo.codigoEstado).json(errorMetodo);
+  }
+
+  // Si el estado del pedido es PTE_SALIDA y el usuario que hace la petición no es el responsable(encargado) del almacen_oriden del pedido --> error
+  // Si el estado del pedido es PTE_ENTRADA y el usuario que hace la petición no es el responsable(encargado) del almacen_destino del pedido --> error
+  let mensajeError = await checkEncargadoResponsable(pedido, req.user.id);
+  if (mensajeError) {
+    const error = new HttpError(mensajeError, 403);
+    return res.status(error.codigoEstado).json(error);
+  }
+
+  //Si el estado es PTE_SALIDA el pedido pasará a LISTO_SALIDA
+  //Si el estado es PTE_ENTRADA el pedido pasará a LISTO_ENTRADA
+  try {
+    let nuevoEstado;
+    switch (pedido.estado) {
+      case 'PTE_SALIDA':
+        nuevoEstado = 'LISTO_SALIDA';
+        break;
+      case 'PTE_ENTRADA':
+        nuevoEstado = 'LISTO_ENTRADA';
+        break;
+      default:
+        const error = new HttpError(
+          'El pedido no está listo para aprobarse',
+          400
+        );
+        return res.status(error.codigoEstado).json(error);
+    }
+
+    const [result] = await updateState(nuevoEstado, pedidoId);
+    const [pedidoById] = await getById(pedidoId);
+    res.json(pedidoById[0]);
+  } catch (error) {
+    const errorMetodo = new HttpError(
+      `Error al actualizar el estado: ${error.message}`,
+      422
+    );
+    return res.status(errorMetodo.codigoEstado).json(errorMetodo);
+  }
+});
+
+/////////////////////////////
+// PUT /api/pedidos/encargado/denegar/pedidoId
+router.put('/encargado/denegar/:pedidoId', checkEncargado, async (req, res) => {
+  const { pedidoId } = req.params;
+
+  let pedido;
+
+  try {
+    const [pedidoById] = await getById(pedidoId);
+    if (pedidoById.length === 0) {
+      const error = new HttpError('No existe el pedido con ese Id', 404);
+      return res.status(error.codigoEstado).json(error);
+    }
+    pedido = pedidoById[0];
+  } catch (error) {
+    const errorMetodo = new HttpError(
+      `Error en el acceso de recuperar pedido: ${error.message}`,
+      422
+    );
+    return res.status(errorMetodo.codigoEstado).json(errorMetodo);
+  }
+
+  //Compruebo la petición
+  if (req.body.comentario_error === '') {
+    const error = new HttpError(
+      'Si quiere denegar el pedido, el comentario de error debe estar relleno',
+      400
+    );
+    return res.status(error.codigoEstado).json(error);
+  }
+
+  // Si el estado del pedido es PTE_SALIDA y el usuario que hace la petición no es el responsable(encargado) del almacen_oriden del pedido --> error
+  // Si el estado del pedido es PTE_ENTRADA y el usuario que hace la petición no es el responsable(encargado) del almacen_destino del pedido --> error
+  let mensajeError = await checkEncargadoResponsable(pedido, req.user.id);
+  if (mensajeError) {
+    const error = new HttpError(mensajeError, 403);
+    return res.status(error.codigoEstado).json(error);
+  }
+
+  //Si el estado es PTE_SALIDA o PTE_ENTRADA el pedido pasará a ERROR
+  try {
+    let nuevoEstado;
+    let comentarioError;
+    switch (pedido.estado) {
+      case 'PTE_SALIDA':
+      case 'PTE_ENTRADA':
+        nuevoEstado = 'ERROR';
+        comentarioError = req.body.comentario_error;
+        break;
+      default:
+        const error = new HttpError(
+          'El pedido no está listo para denegarse',
+          400
+        );
+        return res.status(error.codigoEstado).json(error);
+    }
+
+    const [result] = await updateEstadoYComentario(
+      nuevoEstado,
+      comentarioError,
+      pedidoId
+    );
+    const [pedidoById] = await getById(pedidoId);
+    res.json(pedidoById[0]);
+  } catch (error) {
+    const errorMetodo = new HttpError(
+      `Error al actualizar el estado: ${error.message}`,
+      422
+    );
+    return res.status(errorMetodo.codigoEstado).json(errorMetodo);
+  }
+});
+
 
 /////////////////////////////
 // GET /api/pedidos/pedidoId
