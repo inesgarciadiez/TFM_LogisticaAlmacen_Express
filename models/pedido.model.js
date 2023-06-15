@@ -12,15 +12,19 @@ const getAllByEstadosYUsuario = (estadosOperario, usuarioId) => {
 };
 
 const getAllPedidosByEncargado = (usuarioId) => {
-  return db.query(`SELECT pe.id as referencia, fecha_salida, matricula, alo.nombre as almacen_origen, ald.nombre as almacen_destino, es.estado FROM Logistica_Almacen.pedidos AS pe
+  return db.query(`SELECT pe.id as referencia, estado_id, fecha_creacion, fecha_salida, matricula, detalles, alo.nombre as almacen_origen, ald.nombre as almacen_destino, es.estado FROM pedidos AS pe
   INNER JOIN almacenes AS alo ON pe.almacen_origen_id = alo.id
+  INNER JOIN almacenes AS alm ON pe.responsable_id = alm.id
   INNER JOIN almacenes AS ald ON pe.almacen_destino_id = ald.id
   INNER JOIN estados AS es ON pe.estado_id = es.id
-  WHERE (estado = 'PTE_SALIDA')
-  OR (estado = 'PTE_ENTRADA') ORDER BY pe.id ASC`,
-  [usuarioId, usuarioId]
+  WHERE estado = 'PTE_SALIDA' 
+  OR estado = 'PTE_ENTRADA'
+  ORDER BY pe.id ASC`,
+  [usuarioId]
   );
 };
+
+/* OR estado = 'PTE_ENTRADA' AND pe.responsable_id = ? */
 
 const getAllClosedStateAndUser = (estadosOperario, usuarioId) => {
   return db.query(
