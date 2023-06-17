@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { checkEncargado } = require("../../utils/middlewares")
+const { checkEncargado, checkToken } = require("../../utils/middlewares")
 const {
   getAllByEstadosYUsuario,
   updateState,
@@ -80,7 +80,7 @@ const checkPedidoPermisos = async (pedido, usuarioId) => {
 
 /////////////////////////////
 // GET /api/pedidos/operario
-router.get('/operario', checkOperario, async (req, res) => {
+router.get('/operario', checkToken, checkOperario, async (req, res) => {
   const usuarioId = req.user.id;
   try {
     const [result] = await getAllByEstadosYUsuario(estadosOperario, usuarioId);
@@ -96,7 +96,7 @@ router.get('/operario', checkOperario, async (req, res) => {
 
 //////////////////// GET /api/pedidos/encargado
 //
-router.get('/encargado', checkEncargado, async (req, res) => {
+router.get('/encargado', checkToken, checkEncargado, async (req, res) => {
   const usuarioId = req.user.id;
   try {
     const [result] = await getAllPedidosByEncargado(estadosEncargado, usuarioId);
