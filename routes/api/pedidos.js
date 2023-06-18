@@ -27,10 +27,8 @@ const estadosOperario = [
   'CERRADO',
 ];
 
-const estadosEncargado = [
-  'PTE-SALIDA',
-  'PTE-ENTRADA',
-];
+const estadoCerrado = ['CERRADO'];
+
 
 const checkOperarioResponsable = async (pedido, usuarioId) => {
   // Si el estado del pedido es uno de los estados de operario y el responsable(operario) no es el usuario que hace la petición --> error.
@@ -82,7 +80,7 @@ const checkPedidoPermisos = async (pedido, usuarioId) => {
 // GET /api/pedidos/operario
 router.get('/operario', checkToken, checkOperario, async (req, res) => {
   const usuarioId = req.user.id;
- 
+
   try {
     const [result] = await getAllByEstadosYUsuario(estadosOperario, usuarioId);
     res.json(result);
@@ -109,14 +107,11 @@ router.get('/encargado', checkToken, checkEncargado, async (req, res) => {
 });
 
 /////////////////////////////
-// GET /api/pedidos/operario
-router.get('/operario/:estado', checkOperario, async (req, res) => {
+// GET /api/pedidos/encargado/cerrados
+router.get('/encargado/cerrados', checkEncargado, async (req, res) => {
   const usuarioId = req.user.id;
   try {
-    const [result] = await getAllClosedStateAndUser(
-      req.params.estado,
-      usuarioId
-    );
+    const [result] = await getAllClosedStateAndUser(estadoCerrado, usuarioId);
     res.json(result);
   } catch (error) {
     const errorMetodo = new HttpError(
