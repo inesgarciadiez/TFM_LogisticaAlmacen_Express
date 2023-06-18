@@ -41,7 +41,7 @@ const getAllClosedStateAndUser = (estadosOperario, usuarioId) => {
 const updateState = (estado, pedidoId ) => {
   console.log(estado + " - " + pedidoId)
   return db.query(
-    `UPDATE pedidos SET estado_id = ? WHERE id = ?`,
+    `UPDATE pedidos SET estado_id = (SELECT id FROM estados WHERE estado = ?) , comentario_error = null WHERE id = ?`,
     [estado, pedidoId]
   );
 };
