@@ -58,7 +58,50 @@ const getById = (pedidoId) => {
   );
 };
 
+const getAllPedidos = () => {
+  return db.query(`SELECT * FROM pedidos`);
+};
+const update = (
+  pedidoId,
+  { fecha_salida, matricula, detalles_carga },
+  almacen_origen_id,
+  almacen_destino_id
+) => {
+  return db.query(
+    `UPDATE pedidos SET fecha_salida = ?, matricula = ?, detalles = ?, almacen_origen_id = ?, almacen_destino_id = ? WHERE id = ?`,
+    [
+      fecha_salida,
+      matricula,
+      detalles_carga,
+      almacen_origen_id,
+      almacen_destino_id,
+      pedidoId,
+    ]
+  );
+};
+
+const create = (
+  { fecha_salida, matricula, detalles_carga },
+  responsableId,
+  almacenOrigenId,
+  almacenDestinoId,
+  estadoId
+) => {
+  return db.query(
+    `INSERT INTO pedidos (fecha_creacion, fecha_salida, matricula, detalles, comentario_error, responsable_id, almacen_origen_id, almacen_destino_id, estado_id) values (now(), ?, ?, ?, null, ?, ?, ?, ?)`,
+    [
+      fecha_salida,
+      matricula,
+      detalles_carga,
+      responsableId,
+      almacenOrigenId,
+      almacenDestinoId,
+      estadoId,
+    ]
+  );
+};
+
 module.exports = {
   getAllByEstadosYUsuario, updateState, getAllClosedStateAndUser,
-  getById, getAllPedidosByEncargado
+  getById, getAllPedidosByEncargado, create, update, getAllPedidos
 };
