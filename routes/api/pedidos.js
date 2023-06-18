@@ -82,6 +82,7 @@ const checkPedidoPermisos = async (pedido, usuarioId) => {
 // GET /api/pedidos/operario
 router.get('/operario', checkToken, checkOperario, async (req, res) => {
   const usuarioId = req.user.id;
+ 
   try {
     const [result] = await getAllByEstadosYUsuario(estadosOperario, usuarioId);
     res.json(result);
@@ -181,6 +182,8 @@ router.put(
       const [result] = await updateState(nuevoEstado, pedidoId);
       const [pedidoById] = await getById(pedidoId);
       res.json(pedidoById[0]);
+      sendEmail(pedidoId, nuevoEstado);
+
     } catch (error) {
       const errorMetodo = new HttpError(
         `Error al actualizar el estado: ${error.message}`,
@@ -205,6 +208,7 @@ router.put('/operario/cerrar/:pedidoId', checkOperario, async (req, res) => {
       return res.status(error.codigoEstado).json(error);
     }
     pedido = pedidoById[0];
+
   } catch (error) {
     const errorMetodo = new HttpError(
       `Error en el acceso de recuperar pedido: ${error.message}`,
@@ -233,6 +237,7 @@ router.put('/operario/cerrar/:pedidoId', checkOperario, async (req, res) => {
     const [result] = await updateState(nuevoEstado, pedidoId);
     const [pedidoById] = await getById(pedidoId);
     res.json(pedidoById[0]);
+    sendEmail(pedidoId, "cerrado");
   } catch (error) {
     const errorMetodo = new HttpError(
       `Error al actualizar el estado: ${error.message}`,
@@ -306,6 +311,8 @@ router.put('/encargado/aprobar/:pedidoId', checkEncargado, async (req, res) => {
     const [result] = await updateState(nuevoEstado, pedidoId);
     const [pedidoById] = await getById(pedidoId);
     res.json(pedidoById[0]);
+    sendEmail(pedidoId, "aprobado");
+
   } catch (error) {
     const errorMetodo = new HttpError(
       `Error al actualizar el estado: ${error.message}`,
@@ -329,6 +336,7 @@ router.put('/encargado/denegar/:pedidoId', checkEncargado, async (req, res) => {
       return res.status(error.codigoEstado).json(error);
     }
     pedido = pedidoById[0];
+
   } catch (error) {
     const errorMetodo = new HttpError(
       `Error en el acceso de recuperar pedido: ${error.message}`,
@@ -379,6 +387,7 @@ router.put('/encargado/denegar/:pedidoId', checkEncargado, async (req, res) => {
     );
     const [pedidoById] = await getById(pedidoId);
     res.json(pedidoById[0]);
+    sendEmail(pedidoId, "denegado");
   } catch (error) {
     const errorMetodo = new HttpError(
       `Error al actualizar el estado: ${error.message}`,
@@ -632,5 +641,25 @@ router.post('/', checkOperario, async (req, res) => {
     return res.status(errorMetodo.codigoEstado).json(errorMetodo);
   }
 });
+
+function sendEmail(pedidoId, estado) {
+  const sgMail = require('@sendgrid/mail')
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+  const msg = {
+    to: 'speedmove.sm@gmail.com', // Change to your recipient
+    from: 'inees9204.igd@gmail.com', // Change to your verified sender
+    subject: 'Sending with SendGrid is Fun',
+    text: 'El pedido ' + pedidoId + ' se ha cerrado',
+    html: '<strong>El pedido ' + pedidoId + ' pasa a ' + estado + '</strong>',
+  }
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log('Email sent')
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+}
 
 module.exports = router;
