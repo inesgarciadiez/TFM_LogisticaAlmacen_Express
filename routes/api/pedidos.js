@@ -99,7 +99,7 @@ router.get('/operario', checkToken, checkOperario, async (req, res) => {
 router.get('/encargado', checkToken, checkEncargado, async (req, res) => {
   const usuarioId = req.user.id;
   try {
-    const [result] = await getAllPedidosByEncargado(estadosEncargado, usuarioId);
+    const [result] = await getAllPedidosByEncargado(usuarioId);
     res.json(result);
     console.log(result);
   } catch (error) {
