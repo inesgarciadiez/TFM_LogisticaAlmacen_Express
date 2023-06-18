@@ -80,6 +80,10 @@ Content-Type: application/json
 }
 
 ###
+GET {{host}}/api/almacenes/Las Rosas
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJleHBfYXQiOjE2ODg1OTAxMDcsImlhdCI6MTY4NTk5ODEwN30.qLRF6xRe5UY3qynj1unGB4GKWudLLTzOQY6uqlmUYAg
+
+###
 GET {{host}}/api/almacenes/jefe
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJleHBfYXQiOjE2ODg1OTAxMDcsImlhdCI6MTY4NTk5ODEwN30.qLRF6xRe5UY3qynj1unGB4GKWudLLTzOQY6uqlmUYAg
 
