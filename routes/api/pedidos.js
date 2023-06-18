@@ -82,6 +82,25 @@ const checkPedidoPermisos = async (pedido, usuarioId) => {
 // GET /api/pedidos/operario
 router.get('/operario', checkToken, checkOperario, async (req, res) => {
   const usuarioId = req.user.id;
+
+  const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+const msg = {
+  to: 'inesgarciadiezgd@gmail.com', // Change to your recipient
+  from: 'inees9204.igd@gmail.com', // Change to your verified sender
+  subject: 'Sending with SendGrid is Fun',
+  text: 'and easy to do anywhere, even with Node.js',
+  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+}
+sgMail
+  .send(msg)
+  .then(() => {
+    console.log('Email sent')
+  })
+  .catch((error) => {
+    console.error(error)
+  })
+ 
   try {
     const [result] = await getAllByEstadosYUsuario(estadosOperario, usuarioId);
     res.json(result);
@@ -204,6 +223,23 @@ router.put('/operario/cerrar/:pedidoId', checkOperario, async (req, res) => {
       const error = new HttpError('No existe el pedido con ese Id', 404);
       return res.status(error.codigoEstado).json(error);
     }
+    const sgMail = require('@sendgrid/mail')
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+    const msg = {
+      to: 'inesgarciadiezgd@gmail.com', // Change to your recipient
+      from: 'inees9204.igd@gmail.com', // Change to your verified sender
+      subject: 'Sending with SendGrid is Fun',
+      text: 'El pedido ' + pedidoId + ' se ha cerrado',
+      html: '<strong>El pedido' + pedidoId + 'se ha cerrado</strong>',
+    }
+    sgMail
+      .send(msg)
+      .then(() => {
+        console.log('Email sent')
+      })
+      .catch((error) => {
+        console.error(error)
+      })
     pedido = pedidoById[0];
   } catch (error) {
     const errorMetodo = new HttpError(
