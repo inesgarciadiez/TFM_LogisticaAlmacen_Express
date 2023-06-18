@@ -63,7 +63,7 @@ const getAllPedidos = () => {
 };
 const update = (
   pedidoId,
-  { fecha_salida, matricula, detalles_carga },
+  { fecha_salida, matricula, detalles },
   almacen_origen_id,
   almacen_destino_id
 ) => {
@@ -72,7 +72,7 @@ const update = (
     [
       fecha_salida,
       matricula,
-      detalles_carga,
+      detalles,
       almacen_origen_id,
       almacen_destino_id,
       pedidoId,
@@ -88,7 +88,7 @@ const updateEstadoYComentario = (estado, comentarioError, pedidoId) => {
 };
 
 const create = (
-  { fecha_salida, matricula, detalles_carga },
+  { fecha_salida, matricula, detalles },
   responsableId,
   almacenOrigenId,
   almacenDestinoId,
@@ -99,7 +99,7 @@ const create = (
     [
       fecha_salida,
       matricula,
-      detalles_carga,
+      detalles,
       responsableId,
       almacenOrigenId,
       almacenDestinoId,

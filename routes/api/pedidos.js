@@ -429,7 +429,7 @@ router.put('/:pedidoId', checkOperario, async (req, res) => {
   if (
     req.body.fecha_salida === '' ||
     req.body.matricula === '' ||
-    req.body.detalles_carga === ''
+    req.body.detalles === ''
   ) {
     const error = new HttpError(
       'La fecha de salida, la matricula y los detalles de carga deben estar rellenos',
@@ -537,7 +537,7 @@ router.post('/', checkOperario, async (req, res) => {
   if (
     req.body.fecha_salida === '' ||
     req.body.matricula === '' ||
-    req.body.detalles_carga === ''
+    req.body.detalles === ''
   ) {
     const error = new HttpError(
       'La fecha de salida, la matricula y los detalles de carga deben estar rellenos',

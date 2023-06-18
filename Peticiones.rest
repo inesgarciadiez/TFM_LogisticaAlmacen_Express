@@ -108,7 +108,7 @@ Content-Type: application/json
     "almacen_origen": "Fuente del Jarro",
     "almacen_destino": "Las Rosas",
     "matricula": "5678-DEF",
-    "detalles_carga": "3 bolis azules"
+    "detalles": "500 bolis azules"
 }
 
 ###
@@ -121,7 +121,7 @@ Content-Type: application/json
     "almacen_origen": "ColeVega",
     "almacen_destino": "Fuente del Jarro",
     "matricula": "1234-ABC",
-    "detalles_carga": "2 bolis verdes"
+    "detalles": "400 bolis verdes"
 }
 
 ###
