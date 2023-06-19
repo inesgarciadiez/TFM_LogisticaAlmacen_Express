@@ -1,10 +1,25 @@
 const router = require("express").Router();
-const { getAllAlmacenes, create, updateAlmacen } = require('../../models/almacen.model');
+const { getAllAlmacenes, create, updateAlmacen, getAlmacenByNombre } = require('../../models/almacen.model');
 const { checkJefeEquipo, checkToken } = require("../../utils/middlewares");
 const { HttpError } = require('../../utils/errores');
 
 
 // GET /api/almacenes
+router.get('/:nombre',checkToken, async(req, res) => {
+    const { nombre } = req.params;
+
+    try {
+        const [result] = await getAlmacenByNombre(nombre);
+        res.json(result);
+        console.log(result)
+    } catch (error) {
+        res.status(503)
+            .json({ fatal: error.message });
+    }
+});
+
+
+// GET /api/almacenes/nombre
 router.get('/',checkToken, async(req, res) => {
     try {
         const [result] = await getAllAlmacenes();

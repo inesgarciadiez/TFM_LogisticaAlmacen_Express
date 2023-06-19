@@ -8,6 +8,16 @@ GET {{host}}/api/pedidos/operario
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJ1c2VyX3JvbCI6MSwiaWF0IjoxNjg1OTc2MjM1fQ.0QhbMCkYWFH8npVmZMV6Bq_infVRTFo2QHoY_fzXy3U
 
 ###
+GET {{host}}/api/pedidos/encargado
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo0LCJyb2xfaWQiOjIsImV4cF9hdCI6MTY4OTM1NjEzMSwiaWF0IjoxNjg2NzY0MTMxfQ.FtNTFuvUaggtymGMgKYrN_DEMHdduDZvZF2dgLsJGB0
+
+###
+GET {{host}}/api/pedidos/encargado/cerrados
+//Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo0LCJyb2xfaWQiOjIsImV4cF9hdCI6MTY4OTM1NjEzMSwiaWF0IjoxNjg2NzY0MTMxfQ.FtNTFuvUaggtymGMgKYrN_DEMHdduDZvZF2dgLsJGB0
+//Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxMSwicm9sX2lkIjoyLCJleHBfYXQiOjE2ODk3MTA0NTgsImlhdCI6MTY4NzExODQ1OH0.mo5IN2ufdEvxEuAseGBympKolZHXsYK4y8HHGL2xElw
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo1LCJyb2xfaWQiOjIsImV4cF9hdCI6MTY4OTcxMDU5NywiaWF0IjoxNjg3MTE4NTk3fQ.iS_rfHnWZvt1514wZGwB7jdwru9pDBY4OHOC9Iuxedc
+
+###
 GET {{host}}/api/pedidos/operario/7
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJ1c2VyX3JvbCI6MSwiaWF0IjoxNjg1OTc2MjM1fQ.0QhbMCkYWFH8npVmZMV6Bq_infVRTFo2QHoY_fzXy3U
 
@@ -34,8 +44,8 @@ POST {{host}}/api/usuarios/login
 Content-Type: application/json
 
 {
-    "email": "sabril@gmail.com",
-    "password": "sabril1234"
+    "email": "abuenafuente@gmail.com",
+    "password": "abuenafuente1234"
 }
 
 ###
@@ -91,6 +101,10 @@ Content-Type: application/json
 }
 
 ###
+GET {{host}}/api/almacenes/Las Rosas
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJleHBfYXQiOjE2ODg1OTAxMDcsImlhdCI6MTY4NTk5ODEwN30.qLRF6xRe5UY3qynj1unGB4GKWudLLTzOQY6uqlmUYAg
+
+###
 GET {{host}}/api/almacenes/jefe
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJleHBfYXQiOjE2ODg1OTAxMDcsImlhdCI6MTY4NTk5ODEwN30.qLRF6xRe5UY3qynj1unGB4GKWudLLTzOQY6uqlmUYAg
 
@@ -118,8 +132,7 @@ Content-Type: application/json
     "almacen_origen": "Fuente del Jarro",
     "almacen_destino": "Las Rosas",
     "matricula": "5678-DEF",
-    "detalles_carga": "3 bolis azules",
-    "comentario_error": "El almacen destino no existe"
+    "detalles": "500 bolis azules"
 }
 
 ###
@@ -132,5 +145,30 @@ Content-Type: application/json
     "almacen_origen": "ColeVega",
     "almacen_destino": "Fuente del Jarro",
     "matricula": "1234-ABC",
-    "detalles_carga": "2 bolis verdes"
+    "detalles": "400 bolis verdes"
+}
+
+###
+PUT {{host}}/api/pedidos/operario/enviorevision/5
+//Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJyb2xfaWQiOjEsImV4cF9hdCI6MTY4ODk5MDA5MCwiaWF0IjoxNjg2Mzk4MDkwfQ.9Iue8GsB2mY5xbfb18sOXy_TR8q5lN9OFSp5MsQHO18
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoyLCJyb2xfaWQiOjEsImV4cF9hdCI6MTY4OTMyNTQyMSwiaWF0IjoxNjg2NzMzNDIxfQ.BV3N1zsAA2KY6z3_-tI9qYk-60aY2ZCUzvl_IFPU2cs
+
+###
+PUT {{host}}/api/pedidos/operario/cerrar/11
+//Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJyb2xfaWQiOjEsImV4cF9hdCI6MTY4ODk5MDA5MCwiaWF0IjoxNjg2Mzk4MDkwfQ.9Iue8GsB2mY5xbfb18sOXy_TR8q5lN9OFSp5MsQHO18
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoyLCJyb2xfaWQiOjEsImV4cF9hdCI6MTY4OTMyNTQyMSwiaWF0IjoxNjg2NzMzNDIxfQ.BV3N1zsAA2KY6z3_-tI9qYk-60aY2ZCUzvl_IFPU2cs
+
+###
+PUT {{host}}/api/pedidos/encargado/aprobar/9
+//Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo1LCJyb2xfaWQiOjIsImV4cF9hdCI6MTY4OTM0MjMxMiwiaWF0IjoxNjg2NzUwMzEyfQ.Bu-Jl41Mz2OynXbM4cqrEfnEKFAslzJD-uHHYNvI5hA
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo0LCJyb2xfaWQiOjIsImV4cF9hdCI6MTY4OTM0MjU1NSwiaWF0IjoxNjg2NzUwNTU1fQ.PJN61cXjImC0N3ORcGUogzsABpvFxelaGbJv1xRjZEE
+
+###
+PUT {{host}}/api/pedidos/encargado/denegar/5
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo0LCJyb2xfaWQiOjIsImV4cF9hdCI6MTY4OTM0NDI5NiwiaWF0IjoxNjg2NzUyMjk2fQ.dgNM2av57MbKcfBzZBEH2EQmGMAoC95anD8ZPkcGuSY
+//Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxMSwicm9sX2lkIjoyLCJleHBfYXQiOjE2ODkzNDM3NjUsImlhdCI6MTY4Njc1MTc2NX0.fAh6PoU3Lx_Y8Qxf8jEbDy99jziGz84fWZGWN5Yt34o
+Content-Type: application/json
+
+{
+    "comentario_error": "Faltan 3 bolis azules"
 }
