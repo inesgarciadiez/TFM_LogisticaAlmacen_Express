@@ -12,6 +12,12 @@ GET {{host}}/api/pedidos/encargado
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo0LCJyb2xfaWQiOjIsImV4cF9hdCI6MTY4OTM1NjEzMSwiaWF0IjoxNjg2NzY0MTMxfQ.FtNTFuvUaggtymGMgKYrN_DEMHdduDZvZF2dgLsJGB0
 
 ###
+GET {{host}}/api/pedidos/encargado/cerrados
+//Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo0LCJyb2xfaWQiOjIsImV4cF9hdCI6MTY4OTM1NjEzMSwiaWF0IjoxNjg2NzY0MTMxfQ.FtNTFuvUaggtymGMgKYrN_DEMHdduDZvZF2dgLsJGB0
+//Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxMSwicm9sX2lkIjoyLCJleHBfYXQiOjE2ODk3MTA0NTgsImlhdCI6MTY4NzExODQ1OH0.mo5IN2ufdEvxEuAseGBympKolZHXsYK4y8HHGL2xElw
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo1LCJyb2xfaWQiOjIsImV4cF9hdCI6MTY4OTcxMDU5NywiaWF0IjoxNjg3MTE4NTk3fQ.iS_rfHnWZvt1514wZGwB7jdwru9pDBY4OHOC9Iuxedc
+
+###
 GET {{host}}/api/pedidos/operario/7
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJ1c2VyX3JvbCI6MSwiaWF0IjoxNjg1OTc2MjM1fQ.0QhbMCkYWFH8npVmZMV6Bq_infVRTFo2QHoY_fzXy3U
 
@@ -26,8 +32,8 @@ POST {{host}}/api/usuarios/login
 Content-Type: application/json
 
 {
-    "email": "bromero@gmail.com",
-    "password": "bromero1234"
+    "email": "abuenafuente@gmail.com",
+    "password": "abuenafuente1234"
 }
 
 ###

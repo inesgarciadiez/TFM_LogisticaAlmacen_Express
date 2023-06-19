@@ -1,5 +1,4 @@
-const getAllByEstadosYUsuario = (estadosOperario, usuarioId) => {
-
+const getAllByEstadosYUsuario = (estadosUsuario, usuarioId) => {
   return db.query(
     `SELECT pe.id as referencia, fecha_salida, detalles, matricula, comentario_error, al.nombre as almacen_origen, al2.nombre as almacen_destino, es.estado FROM Logistica_Almacen.pedidos AS pe
     INNER JOIN Logistica_Almacen.almacenes AS al ON pe.almacen_origen_id = al.id
@@ -8,39 +7,38 @@ const getAllByEstadosYUsuario = (estadosOperario, usuarioId) => {
     WHERE es.estado IN(?)
     AND pe.responsable_id = ?
     ORDER BY pe.id ASC`,
-    [estadosOperario, usuarioId]
+    [estadosUsuario, usuarioId]
   );
 };
 
 const getAllPedidosByEncargado = (usuarioId) => {
-  return db.query(`SELECT pe.id as referencia, estado_id, fecha_creacion, fecha_salida, matricula, detalles, alo.nombre as almacen_origen, ald.nombre as almacen_destino, es.estado FROM pedidos AS pe
+  return db.query(
+    `SELECT pe.id as referencia, estado_id, fecha_creacion, fecha_salida, matricula, detalles, alo.nombre as almacen_origen, ald.nombre as almacen_destino, es.estado FROM pedidos AS pe
   INNER JOIN almacenes AS alo ON pe.almacen_origen_id = alo.id
   INNER JOIN almacenes AS ald ON pe.almacen_destino_id = ald.id
   INNER JOIN estados AS es ON pe.estado_id = es.id
   WHERE (estado = 'PTE_SALIDA' AND alo.responsable_id = ?)
   OR (estado = 'PTE_ENTRADA' AND ald.responsable_id = ?)
   ORDER BY pe.id ASC`,
-  [usuarioId, usuarioId]
+    [usuarioId, usuarioId]
   );
 };
 
-/* OR estado = 'PTE_ENTRADA' AND pe.responsable_id = ? */
-
-const getAllClosedStateAndUser = (estadosOperario, usuarioId) => {
+const getAllClosedStateAndUser = (estado, usuarioId) => {
   return db.query(
-    `SELECT pe.id as referencia, fecha_salida, matricula, al.nombre as almacen_origen, al2.nombre as almacen_destino, es.estado FROM Logistica_Almacen.pedidos AS pe
-    INNER JOIN Logistica_Almacen.almacenes AS al ON pe.almacen_origen_id = al.id
-    INNER JOIN Logistica_Almacen.almacenes AS al2 ON pe.almacen_destino_id = al2.id
+    `SELECT pe.id as referencia, fecha_salida, matricula, detalles, alo.nombre as almacen_origen, ald.nombre as almacen_destino, es.estado FROM Logistica_Almacen.pedidos AS pe
+    INNER JOIN Logistica_Almacen.almacenes AS alo ON pe.almacen_origen_id = alo.id
+    INNER JOIN Logistica_Almacen.almacenes AS ald ON pe.almacen_destino_id = ald.id
     INNER JOIN Logistica_Almacen.estados AS es ON pe.estado_id = es.id
-    WHERE estado_id = ?
-    AND pe.responsable_id = ?
+    WHERE estado = ?
+    AND (alo.responsable_id = ? OR ald.responsable_id = ?)
     ORDER BY pe.id ASC`,
-    [estadosOperario, usuarioId]
+    [estado, usuarioId, usuarioId]
   );
 };
 
-const updateState = (estado, pedidoId ) => {
-  console.log(estado + " - " + pedidoId)
+const updateState = (estado, pedidoId) => {
+  console.log(estado + ' - ' + pedidoId);
   return db.query(
     `UPDATE pedidos SET estado_id = (SELECT id FROM estados WHERE estado = ?) , comentario_error = null WHERE id = ?`,
     [estado, pedidoId]
@@ -110,6 +108,13 @@ const create = (
 };
 
 module.exports = {
-  getAllByEstadosYUsuario, updateState, getAllClosedStateAndUser,
-  getById, getAllPedidosByEncargado, create, update, getAllPedidos, updateEstadoYComentario
+  getAllByEstadosYUsuario,
+  updateState,
+  getAllClosedStateAndUser,
+  getById,
+  getAllPedidosByEncargado,
+  create,
+  update,
+  getAllPedidos,
+  updateEstadoYComentario,
 };
