@@ -107,6 +107,16 @@ const create = (
   );
 };
 
+const deletePedido = (pedidoId) => {
+  console.log(pedidoId)
+  return db.query(
+    `DELETE FROM pedidos WHERE id = ?`,
+    [
+      pedidoId
+    ]
+  );
+}
+
 module.exports = {
   getAllByEstadosYUsuario,
   updateState,
@@ -114,6 +124,7 @@ module.exports = {
   getById,
   getAllPedidosByEncargado,
   create,
+  deletePedido,
   update,
   getAllPedidos,
   updateEstadoYComentario,

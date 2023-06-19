@@ -7,6 +7,7 @@ const {
   getAllPedidos,
   update,
   create,
+  deletePedido,
   updateEstadoYComentario,
   getAllPedidosByEncargado,
 } = require('../../models/pedido.model');
@@ -637,6 +638,18 @@ router.post('/', checkOperario, async (req, res) => {
   }
 });
 
+// DELETE /api/pedidos/pedidoId
+router.delete('/:pedidoId', checkOperario, async (req, res) => {
+  const pedidoId = req.params.pedidoId;
+  try {
+    const [result] = await deletePedido(pedidoId);
+    res.json(result);
+  } catch (error) {
+    const errorMetodo = new HttpError(
+      `Error en el acceso: ${error.message}`,
+  )}
+});
+  
 function sendEmail(pedidoId, estado) {
   const sgMail = require('@sendgrid/mail')
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
