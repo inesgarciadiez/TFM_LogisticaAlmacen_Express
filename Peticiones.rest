@@ -22,12 +22,7 @@ GET {{host}}/api/pedidos/operario/7
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJ1c2VyX3JvbCI6MSwiaWF0IjoxNjg1OTc2MjM1fQ.0QhbMCkYWFH8npVmZMV6Bq_infVRTFo2QHoY_fzXy3U
 
 ###
-PUT {{host}}/api/pedidos/operario/1/7
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJ1c2VyX3JvbCI6MSwiaWF0IjoxNjg1OTc2MjM1fQ.0QhbMCkYWFH8npVmZMV6Bq_infVRTFo2QHoY_fzXy3U
-
-
-###
-POST {{host}}/api/pedidos
+PUT {{host}}/api/pedidos/operario/2
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjoxLCJ1c2VyX3JvbCI6MSwiaWF0IjoxNjg1OTc2MjM1fQ.0QhbMCkYWFH8npVmZMV6Bq_infVRTFo2QHoY_fzXy3U
 Content-Type: application/json
 
